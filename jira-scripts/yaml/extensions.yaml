@@ -20,3 +20,374 @@ behaviours:
           - "IssueTransition"
         affectedFields:
           - "customfield_25890"   # HCS-Project field
+
+  - name: "CUSTOMERCARE Traffic Light change - Management only"
+    description: ""
+    uuid: "318f1445-e9b5-40c2-bd5f-3fa1bab11054"
+    enabled: true
+    executionUser: ADD_ON
+    mappings:
+      "CUSTCARE":
+        - "all"
+    config:
+      # Initialiser — runs on load for every issue in CUSTCARE
+      - fieldName: ""
+        fieldUuid: "020c1db2-233a-4e50-ae95-ea71bcb3d546"
+        path: CCInitialiser.ts
+        event:
+          - "ONLOAD"
+        viewTypes:
+          - "GIC"
+          - "IssueView"
+          - "IssueTransition"
+        affectedFields:
+          - "customfield_12902"
+          - "customfield_28690"
+          - "customfield_25190"
+          - "labels"
+
+      # Pulse Ticket onChange handler — pre-populates description templates
+      - fieldName: ""
+        fieldUuid: "eaf4322f-fddf-49be-982f-96f10a0a44ee"
+        path: CCPulseHandler.ts
+        event:
+          - "ONCHANGE"
+        viewTypes:
+          - "GIC"
+          - "IssueView"
+          - "IssueTransition"
+        affectedFields:
+          - "description"
+          - "customfield_13090"
+
+  - name: "CM Behavior"
+    description: "Hide/unhide fields based on Shipper and Epic Link selections (Ref: HELPCENTER-2466, HELPCENTER-2930)"
+    uuid: "45501378-fb4a-485e-a55f-99fae47d1fe4"
+    enabled: true
+    executionUser: ADD_ON
+    mappings:
+      "CM":
+        - "Request"
+        - "Rates update"
+    config:
+      # Shipper field → complexityHandler
+      - fieldName: ""
+        fieldUuid: "84970f7c-b0cd-4655-af89-3f1a4d8eb65e"
+        path: complexityHandler.ts
+        event:
+          - "ONCHANGE"
+        viewTypes:
+          - "GIC"
+          - "IssueView"
+          - "IssueTransition"
+        affectedFields:
+          - "customfield_12904"
+
+      # Epic Link field → epicLinkHandler
+      - fieldName: ""
+        fieldUuid: "b6e972af-b884-4bc8-9a6e-cb4db8ef9cd8"
+        path: epicLinkHandler.ts
+        event:
+          - "ONCHANGE"
+        viewTypes:
+          - "GIC"
+          - "IssueView"
+          - "IssueTransition"
+        affectedFields:
+          - "customfield_24649"
+          - "customfield_24648"
+
+  - name: "CX Adjusted Expected ARR (in €)"
+    description: "Just allow value > 500 for the field: Adjusted Expected ARR (in €)"
+    uuid: "46e0e268-b30e-46d7-b0ba-1229266f4cbe"
+    enabled: true
+    executionUser: ADD_ON
+    mappings:
+      "all":
+        - "Epic"
+    config:
+      - fieldName: ""
+        fieldUuid: "ef586a04-14f8-4750-8d44-6ad058643504"
+        path: AdjustedExpectedARR_JustAllowValueGreaterThan500.ts
+        event:
+          - "ONCHANGE"
+        viewTypes:
+          - "GIC"
+          - "IssueView"
+          - "IssueTransition"
+        affectedFields:
+          - "customfield_29991"
+
+  - name: "Customer Services Effort Estimation Request RT-Field Carrier Onboarding Team"
+    description: "HELPCENTER-2477"
+    uuid: "21559dee-d503-4ac1-a102-5c1ba1f9bed6"
+    enabled: true
+    executionUser: ADD_ON
+    mappings:
+      "CUSTSERV":
+        - "Effort Estimation Request"   # Replace with the exact Jira issue type name if different
+    config:
+      - fieldName: ""
+        fieldUuid: "3ea3073d-adf0-4dca-8a72-d0e8f79d4e62"
+        path: CSEffortEstimationRequest_Team-Name.ts
+        event:
+          - "ONLOAD"
+        viewTypes:
+          - "GIC"
+          - "IssueTransition"
+          - "IssueView"
+        affectedFields:
+          - "customfield_12090"
+
+  - name: "DEVSERVICE RT: AP Company Mapping Request - read only"
+    description: "Requested by Claudia Rohde"
+    uuid: "dda91b36-e3d3-491f-9474-4cd83703e6b1"
+    enabled: true
+    executionUser: ADD_ON
+    mappings:
+      "DEVSERVICE":
+        - "AP Company Mapping Request"
+    config:
+      - fieldName: ""
+        fieldUuid: "d567a829-592d-4761-9ac9-d9f4ac0b0e50"
+        path: DEVSERVICE_RT_AP_Company_Mapping_Request_read_only.ts
+        event:
+          - "ONLOAD"
+        viewTypes:
+          - "GIC"
+          - "IssueView"
+          - "IssueTransition"
+        affectedFields:
+          - "summary"
+
+  - name: "DM Behavior"
+    description: ""
+    uuid: "73cfa385-d143-476b-aadb-18f70047a082"
+    enabled: true
+    executionUser: ADD_ON
+    mappings:
+      "DM":
+        - "Request"
+    config:
+      - fieldName: ""
+        fieldUuid: "8fd76793-f877-4cb4-bd2f-ea9c5698377c"
+        path: DMBehaviour.ts
+        event:
+          - "ONCHANGE"
+        viewTypes:
+          - "GIC"
+          - "IssueTransition"
+          - "IssueView"
+        affectedFields:
+          - "summary"
+
+      - fieldName: ""
+        fieldUuid: "683566d5-54f9-4d68-bdef-aa5df7a6043c"
+        path: DMBehaviour.ts
+        event:
+          - "ONCHANGE"
+        viewTypes:
+          - "GIC"
+          - "IssueTransition"
+          - "IssueView"
+        affectedFields:
+          - "summary"
+
+      - fieldName: ""
+        fieldUuid: "bb34bcec-e733-4c6a-9cbd-41397ba67956"
+        path: DMBehaviour.ts
+        event:
+          - "ONCHANGE"
+        viewTypes:
+          - "GIC"
+          - "IssueTransition"
+          - "IssueView"
+        affectedFields:
+          - "summary"
+
+      - fieldName: ""
+        fieldUuid: "c2de76bf-2c23-41b7-b766-e38652b29886"
+        path: DMBehaviour.ts
+        event:
+          - "ONCHANGE"
+        viewTypes:
+          - "GIC"
+          - "IssueTransition"
+          - "IssueView"
+        affectedFields:
+          - "summary"
+
+      - fieldName: ""
+        fieldUuid: "408a65ae-141e-431e-9578-03890b7f8474"
+        path: DMBehaviour.ts
+        event:
+          - "ONCHANGE"
+        viewTypes:
+          - "GIC"
+          - "IssueTransition"
+          - "IssueView"
+        affectedFields:
+          - "summary"
+
+  - name: "EM Behaviour"
+    uuid: "41242cc3-1360-457c-94d5-14ffcf8c6728"
+    enabled: true
+    executionUser: ADD_ON
+    mappings:
+      "EM":
+        - "Request for SWAG"
+    config:
+      # Initialiser – sets field descriptions and default values on load
+      - fieldName: ""
+        fieldUuid: "b6dbc3a8-d1bb-4c74-a5b1-239c2b14603e"
+        path: em-behaviour-init.ts
+        event:
+          - "ONLOAD"
+        viewTypes:
+          - "GIC"
+          - "IssueView"
+          - "IssueTransition"
+        affectedFields:
+          - "duedate"
+          - "customfield_28394"
+          - "customfield_28395"
+          - "customfield_28396"
+
+      # Description field – pre-fills the description template when the field is empty
+      - fieldName: ""
+        fieldUuid: "ef703e89-b3f3-4dd8-aa79-280071e9d7b5"
+        path: em-behaviour-description.ts
+        event:
+          - "ONLOAD"
+        viewTypes:
+          - "GIC"
+          - "IssueView"
+          - "IssueTransition"
+        affectedFields:
+          - "description"
+
+  - name: "EMR Behaviour"
+    uuid: "b273fc4a-0533-459d-aa61-9121dfe083aa"
+    enabled: true
+    executionUser: ADD_ON
+    mappings:
+      "EMR":
+        - "Task"
+        - "Story"
+    config:
+      - fieldName: ""
+        fieldUuid: "82ac4fbc-d38c-4b90-af8a-c2edd9a622d4"
+        path: EMRBehaviour.ts
+        event:
+          - "ONLOAD"
+        viewTypes:
+          - "GIC"
+          - "IssueTransition"
+          - "IssueView"
+        affectedFields:
+          - "customfield_11693"
+
+  - name: "HELPCENTER Behaviour"
+    uuid: "5779a6cb-2e72-4ca1-b916-77b3d4a70913"
+    enabled: true
+    executionUser: ADD_ON
+    mappings:
+      "HELPCENTER":
+        - "Know Your Project Administrator"
+    config:
+      - fieldName: ""
+        fieldUuid: "2640f04d-0f34-4f28-bd39-5eaf12f2e3e9"
+        path: helpCenterBehaviour.ts
+        event:
+          - "ONLOAD"
+        viewTypes:
+          - "GIC"
+          - "IssueView"
+          - "IssueTransition"
+        affectedFields:
+          - "description"
+          - "customfield_13391"
+
+  - name: "Hide Comment on Transition CC+Product-Experts Request"
+    uuid: "e9707394-8c04-47e6-ba7c-d213a3db0e47"   # retained from DC
+    enabled: true
+    executionUser: ADD_ON
+    mappings:
+      "CUSTCARE":
+        - "Support"
+    config:
+      - fieldName: ""
+        fieldUuid: "5e3e8319-72de-4ed3-ba7b-22d2928a6026"   # retained from DC
+        path: HideCommentOnTransitionCCProductExpertsRequest.ts
+        event:
+          - "ONLOAD"
+        viewTypes:
+          - "IssueTransition"
+        affectedFields:
+          - "comment"
+
+  - name: "SUPP Behaviour"
+    description: "Hide/show fields based on Classification and Preventive Actions Completed selections"
+    uuid: "5d3d33c2-7582-4fb1-aba0-7e0f23bf2eb3"
+    enabled: true
+    executionUser: ADD_ON
+    mappings:
+      "SUPP":
+        - "Request"
+    config:
+      - fieldName: ""
+        fieldUuid: "534845f1-a0d0-430d-b1ab-dffa253f6b2e"
+        path: SUPPClassificationHandler.ts
+        event:
+          - "ONCHANGE"
+        viewTypes:
+          - "GIC"
+          - "IssueView"
+          - "IssueTransition"
+        affectedFields:
+          - "Preventive Actions Completed"
+
+      - fieldName: ""
+        fieldUuid: "f6386b3a-43cd-43d2-8fa4-7310cbf5d431"
+        path: SUPPPacHandler.ts
+        event:
+          - "ONCHANGE"
+        viewTypes:
+          - "GIC"
+          - "IssueView"
+          - "IssueTransition"
+        affectedFields:
+          - "Reason"
+
+  - name: "UserBelongToGroups"
+    description: "Displays group membership for a selected user on the JSM request form."
+    uuid: "afae31e0-6a53-448c-9010-61e1f75c1655"
+    enabled: true
+    executionUser: ADD_ON
+    mappings:
+      "HCSUSERGROUP":
+        - "User in groups overview"
+    config:
+      # Initialiser — runs on form load
+      - fieldName: ""
+        fieldUuid: "3ea7aac9-bc9d-48df-9a48-b8b0f8795378"
+        path: userGroup_Initialiser.ts
+        event:
+          - "ONLOAD"
+        viewTypes:
+          - "GIC"
+        affectedFields:
+          - "description"
+          - "customfield_13391"
+
+      # Affected User field — runs when the user picker value changes
+      - fieldName: ""
+        fieldUuid: "61a148f4-64b4-49ce-b2c9-269d7bf20235"
+        path: userGroup_AffectedUser.ts
+        event:
+          - "ONCHANGE"
+        viewTypes:
+          - "GIC"
+        affectedFields:
+          - "description"
+          - "customfield_13391"
