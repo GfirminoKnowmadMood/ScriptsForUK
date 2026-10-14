@@ -1,0 +1,22 @@
+//cloud/src/main/resources/extensions.yaml
+behaviours:
+  - name: "Add user to group"
+    description: ""
+    uuid: "e41cde19-fccd-4ef5-b63e-bf50e257b37c"
+    enabled: true
+    executionUser: ADD_ON
+    mappings:
+      "HCSUSERGROUP":
+        - "Add user to group"   # Replace with the exact work item type name in your Cloud instance
+    config:
+      - fieldName: ""
+        fieldUuid: "3766aa8f-aaff-4f1a-9fdb-fa9889bd56cc"
+        path: hcs-project-behaviour.ts
+        event:
+          - "ONCHANGE"
+        viewTypes:
+          - "GIC"
+          - "IssueView"
+          - "IssueTransition"
+        affectedFields:
+          - "customfield_25890"   # HCS-Project field
